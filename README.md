@@ -40,49 +40,6 @@ cargo build
 
 ## Usage
 
-### Basic Example
-
-```rust
-use std::sync::Arc;
-use chrono::Utc;
-use ticket_triage::{
-    pipeline::TicketPipeline,
-    processors::{
-        classification::ClassificationProcessor,
-        language::LanguageProcessor,
-        sentiment::SentimentProcessor,
-    },
-    ticket::SupportTicket,
-};
-
-#[tokio::main]
-async fn main() {
-    // Create a support ticket
-    let ticket = SupportTicket::new(
-        "ticket-001".to_string(),
-        "I'm having trouble with my billing. The payment failed.".to_string(),
-        Utc::now(),
-        "customer-123".to_string(),
-    );
-
-    // Build processing pipeline
-    let pipeline = TicketPipeline::default()
-        .with_processor(Arc::new(LanguageProcessor))
-        .with_processor(Arc::new(SentimentProcessor::new().unwrap()))
-        .with_processor(Arc::new(ClassificationProcessor::new().unwrap()));
-
-    // Process the ticket
-    let processed_ticket = pipeline
-        .process_ticket(ticket)
-        .await
-        .expect("Failed to process ticket");
-
-    println!("Processed Ticket: {:?}", processed_ticket);
-}
-```
-
-### Running the Example
-
 ```bash
 cargo run
 ```
