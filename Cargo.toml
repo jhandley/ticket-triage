@@ -1,0 +1,28 @@
+[package]
+name = "ticket-triage"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.98"
+async-openai = "0.29.0"
+async-trait = "0.1.88"
+bitflags = "2.9.1"
+chrono = { version = "0.4", features = ["serde"] }
+clap = "4.5.41"
+dotenvy = "0.15.7"
+env_logger = "0.11.8"
+futures = "0.3.31"
+language-enum = "0.3.0"
+log = "0.4.27"
+regex = "1.11.1"
+reqwest = { version= "0.12.22", features=["json"] }
+schemars = "1.0.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.141"
+thiserror = "2.0.12"
+tokio = { version = "1.46.1", features = ["full", "sync"] }
+whatlang = "0.16.4"
+
+[dev-dependencies]
+mockall = "0.13.1"
