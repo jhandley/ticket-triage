@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
-use tokio::task::JoinError;
 
 #[derive(Error, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ProcessingError {
@@ -15,9 +14,6 @@ pub enum ProcessingError {
 
     #[error("Failed to detect language")]
     LanguageDetectionError(),
-
-    #[error("Task join error: {0}")]
-    TaskJoinError(String),
 
     #[error("Sentiment analysis failed: {0}")]
     SentimentAnalysis(String),
@@ -35,11 +31,5 @@ pub enum ProcessingError {
 impl From<reqwest::Error> for ProcessingError {
     fn from(err: reqwest::Error) -> Self {
         Self::NetworkError(err.to_string())
-    }
-}
-
-impl From<JoinError> for ProcessingError {
-    fn from(err: JoinError) -> Self {
-        Self::TaskJoinError(err.to_string())
     }
 }
